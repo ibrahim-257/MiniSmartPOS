@@ -8,11 +8,8 @@ namespace MiniSmartPOS
 {
     internal class ReceiptLogger
     {
-        public delegate void LogDelegate(string message);
-
-        private LogDelegate _logAction;
-
-        public ReceiptLogger(LogDelegate LogAction)
+       public Action<string> _logAction;
+        public ReceiptLogger(Action<string> LogAction)
         {
             _logAction = LogAction;
         }

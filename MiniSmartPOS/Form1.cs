@@ -27,23 +27,19 @@ namespace MiniSmartPOS
             cbCustomerType.SelectedIndex = 0;
 
 
-            ReceiptLogger.LogDelegate logActions = LogToListBox;
+            Action<string> logActions = LogToListBox;
             logActions += LogToFile;
             _Logger = new ReceiptLogger(logActions);
 
         }
 
-        private decimal RegularDiscount(decimal total) => total;
-        private decimal SrudentDiscount(decimal total) => total * 0.85m;
-        private decimal VipDiscount(decimal total) => total * 0.75m;
-
-        private OrderCalculater.DiscountDelegate GetSelectedDiscountStrategy()
+        private Func<decimal, decimal> GetSelectedDiscountStrategy()
         {
             switch (cbCustomerType.SelectedIndex)
             {
-                case 1: return SrudentDiscount;
-                case 2: return VipDiscount;
-                default: return RegularDiscount;
+                case 1: return total => total * 0.85m;
+                case 2: return total => total * 0.75m;
+                default: return total => total;
             }
         }
 
@@ -85,16 +81,9 @@ namespace MiniSmartPOS
 
         private void ProductCard_OnItemAdded(object sender, ctrProductCard.OrderItemEventArgs e)
         {
-            OrderItem existingItem = null;
+            OrderItem existingItem = _cart.Find(item => item.ItemName == e.ProductName);
 
-            foreach (OrderItem item in _cart)
-            {
-                if (item.ItemName == e.ProductName)
-                {
-                    existingItem = item;
-                    break;
-                }
-            }
+          
 
             if (existingItem != null)
             {

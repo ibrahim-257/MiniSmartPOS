@@ -8,7 +8,6 @@ namespace MiniSmartPOS
 {
     public class OrderCalculater
     {
-        public delegate decimal DiscountDelegate(decimal subTotal);
 
         public decimal CalculateSubTotal(List<OrderItem> cart)
         {
@@ -20,7 +19,7 @@ namespace MiniSmartPOS
             return total;
         }
 
-        public decimal CalculateFinalTotal(decimal subTotal, DiscountDelegate applyDiscount)
+        public decimal CalculateFinalTotal(decimal subTotal, Func<decimal,decimal> applyDiscount)
         {
             if (applyDiscount == null)
                 return subTotal;
