@@ -2,7 +2,6 @@
 
 A lightweight Cafe Point-of-Sale (POS) desktop application built with **C# WinForms** to demonstrate clean UI component design, event-driven programming, and custom delegates.
 
-![MiniSmartPOS Screenshot](Screenshot 2026-11-25 165905.png)
 
 ## ✨ Features
 - **Reusable Product Cards:** Custom `UserControl` (`ctrProductCard`) supporting design-time properties (`ItemName`, `UnitPrice`) and quantity selection.
